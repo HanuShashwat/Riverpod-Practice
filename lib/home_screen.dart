@@ -2,15 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_practice/main.dart';
 
-class MyHomePage extends ConsumerWidget {
-  const MyHomePage({super.key});
+class MyWidget extends ConsumerStatefulWidget {
+  const MyWidget({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final name = ref.watch(nameProvider);
+  ConsumerState<MyWidget> createState() => _MyWidgetState();
+}
 
+class _MyWidgetState extends ConsumerState<MyWidget> {
+
+  @override
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final name = ref.watch(nameProvider);
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(name),
+      ),
       body: Column(
         children: [
           Center(
