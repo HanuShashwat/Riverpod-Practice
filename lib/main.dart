@@ -2,13 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:riverpod_practice/home_screen.dart';
+import 'package:riverpod_practice/user.dart';
 
 // Providers
 // Provider
 // StateProvider
+// StateNotifier and StateNotifierProvider
 
-//final nameProvider = Provider<String>((ref) => "Hanu Shashwat");
-final nameProvider = StateProvider<String?>((ref) => null);
+final userProvider = StateNotifierProvider<UserNotifier, User>(
+      (ref) => UserNotifier(
+        const User(
+            name: " ",
+            age: 0
+        ),
+      ),
+);
 
 void main() {
   runApp(
