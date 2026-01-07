@@ -6,7 +6,7 @@ class HomeScreen extends ConsumerWidget {
   const HomeScreen ({super.key});
 
   void onSubmit(WidgetRef ref, String value) {
-    ref.read(userProvider.notifier).updateName(value);
+    ref.read(userProvider .notifier).updateName(value);
   }
 
   void onSubmitAge(WidgetRef ref, String value) {
@@ -15,11 +15,11 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(userProvider);
+    final user = ref.watch(userProvider.select((value) => value.name));
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(user.name),
+        title: Text(user),
       ),
       body: Column(
         children: [
@@ -30,7 +30,7 @@ class HomeScreen extends ConsumerWidget {
             onSubmitted: (value) => onSubmitAge(ref, value),
           ),
           Center(
-            child: Text(user.age.toString()),
+            child: Text(user.toString()),
           ),
         ],
       ),
