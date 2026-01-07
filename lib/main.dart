@@ -8,6 +8,7 @@ import 'package:riverpod_practice/user.dart';
 // Provider
 // StateProvider
 // StateNotifier and StateNotifierProvider
+// ChangeNotifierProvider
 
 final userProvider = StateNotifierProvider<UserNotifier, User>(
       (ref) => UserNotifier(
@@ -17,6 +18,8 @@ final userProvider = StateNotifierProvider<UserNotifier, User>(
         ),
       ),
 );
+
+final userChangeNotifierProvider = ChangeNotifierProvider((ref) => UserNotifierChange());
 
 void main() {
   runApp(
