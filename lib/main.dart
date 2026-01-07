@@ -3,23 +3,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:riverpod_practice/home_screen.dart';
 import 'package:riverpod_practice/user.dart';
+import 'package:http/http.dart' as http;
 
 // Providers
 // Provider
 // StateProvider
 // StateNotifier and StateNotifierProvider
 // ChangeNotifierProvider
+// FutureProvider
 
-final userProvider = StateNotifierProvider<UserNotifier, User>(
-      (ref) => UserNotifier(
-        const User(
-            name: " ",
-            age: 0
-        ),
-      ),
-);
-
-final userChangeNotifierProvider = ChangeNotifierProvider((ref) => UserNotifierChange());
+final fetchUserProvider = FutureProvider((ref) {
+  const url = 'https://jsonplaceholder.typicode.com/users/1';
+  
+  return http.get(Uri.parse(url)).then((value) => User.fromJson(value.body));
+});
 
 void main() {
   runApp(

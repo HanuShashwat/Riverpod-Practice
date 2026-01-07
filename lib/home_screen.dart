@@ -5,35 +5,35 @@ import 'package:riverpod_practice/main.dart';
 class HomeScreen extends ConsumerWidget {
   const HomeScreen ({super.key});
 
-  void onSubmit(WidgetRef ref, String value) {
-    ref.read(userChangeNotifierProvider .notifier).updateName(value);
-  }
-
-  void onSubmitAge(WidgetRef ref, String value) {
-    ref.read(userChangeNotifierProvider.notifier).updateAge(int.parse(value));
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(userChangeNotifierProvider).user;
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(user.name),
-      ),
-      body: Column(
-        children: [
-          TextField(
-            onSubmitted: (value) => onSubmit(ref, value),
-          ),
-          TextField(
-            onSubmitted: (value) => onSubmitAge(ref, value),
-          ),
-          Center(
-            child: Text(user.age.toString()),
-          ),
-        ],
-      ),
+    return ref.watch(fetchUserProvider).when(
+        data: (data) {
+          return Scaffold(
+            appBar: AppBar(),
+            body: Column(
+              children: [
+                Center(
+                  child: Text(data.name),
+                )
+              ],
+            ),
+          );
+        },
+        error: (error, stackTrace) {
+          return Scaffold(
+            body: Center(
+              child: Text(
+                error.toString(),
+              ),
+            ),
+          );
+        },
+        loading: () {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
     );
   }
 }
