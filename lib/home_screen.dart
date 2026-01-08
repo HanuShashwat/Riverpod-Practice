@@ -7,24 +7,48 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ref.watch(fetchUserProvider).when(
+    // return ref.watch(fetchUserProvider).when(
+    //     data: (data) {
+    //       return Scaffold(
+    //         appBar: AppBar(),
+    //         body: Column(
+    //           children: [
+    //             Center(
+    //               child: Text(data.name),
+    //             )
+    //           ],
+    //         ),
+    //       );
+    //     },
+    //     error: (error, stackTrace) {
+    //       return Scaffold(
+    //         body: Center(
+    //           child: Text(
+    //             error.toString(),
+    //           ),
+    //         ),
+    //       );
+    //     },
+    //     loading: () {
+    //       return const Center(
+    //         child: CircularProgressIndicator(),
+    //       );
+    //     }
+    // );
+    
+    return ref.watch(streamProvider).when(
         data: (data) {
           return Scaffold(
-            appBar: AppBar(),
-            body: Column(
-              children: [
-                Center(
-                  child: Text(data.name),
-                )
-              ],
-            ),
+              body: Center(
+                  child: Text(data.toString()),
+              ),
           );
         },
         error: (error, stackTrace) {
           return Scaffold(
             body: Center(
               child: Text(
-                error.toString(),
+                error.toString()
               ),
             ),
           );
