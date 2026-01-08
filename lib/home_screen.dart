@@ -2,53 +2,41 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_practice/main.dart';
 
-class HomeScreen extends ConsumerWidget {
-  const HomeScreen ({super.key});
+class MyHomePage extends ConsumerStatefulWidget {
+  const MyHomePage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // return ref.watch(fetchUserProvider).when(
-    //     data: (data) {
-    //       return Scaffold(
-    //         appBar: AppBar(),
-    //         body: Column(
-    //           children: [
-    //             Center(
-    //               child: Text(data.name),
-    //             )
-    //           ],
-    //         ),
-    //       );
-    //     },
-    //     error: (error, stackTrace) {
-    //       return Scaffold(
-    //         body: Center(
-    //           child: Text(
-    //             error.toString(),
-    //           ),
-    //         ),
-    //       );
-    //     },
-    //     loading: () {
-    //       return const Center(
-    //         child: CircularProgressIndicator(),
-    //       );
-    //     }
-    // );
-    
-    return ref.watch(streamProvider).when(
+  ConsumerState<ConsumerStatefulWidget> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends ConsumerState<MyHomePage> {
+  String userNo = "1";
+
+  @override
+  Widget build(BuildContext context) {
+    return ref.watch(fetchUserProvider(userNo)).when(
         data: (data) {
           return Scaffold(
-              body: Center(
-                  child: Text(data.toString()),
-              ),
+            appBar: AppBar(),
+            body: Column(
+              children: [
+                TextField(
+                  onSubmitted: (value) => setState(() {
+                    userNo = value;
+                  }),
+                ),
+                Center(
+                  child: Text(data.name),
+                )
+              ],
+            ),
           );
         },
         error: (error, stackTrace) {
           return Scaffold(
             body: Center(
               child: Text(
-                error.toString()
+                error.toString(),
               ),
             ),
           );
@@ -59,5 +47,29 @@ class HomeScreen extends ConsumerWidget {
           );
         }
     );
+
+    // return ref.watch(streamProvider).when(
+    //     data: (data) {
+    //       return Scaffold(
+    //         body: Center(
+    //           child: Text(data.toString()),
+    //         ),
+    //       );
+    //     },
+    //     error: (error, stackTrace) {
+    //       return Scaffold(
+    //         body: Center(
+    //           child: Text(
+    //               error.toString()
+    //           ),
+    //         ),
+    //       );
+    //     },
+    //     loading: () {
+    //       return const Center(
+    //         child: CircularProgressIndicator(),
+    //       );
+    //     }
+    // );
   }
 }

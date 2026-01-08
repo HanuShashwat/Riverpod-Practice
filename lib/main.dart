@@ -11,9 +11,9 @@ import 'package:riverpod_practice/user.dart';
 // FutureProvider
 // StreamProvider
 
-final fetchUserProvider = FutureProvider((ref) {
+final fetchUserProvider = FutureProvider.family((ref, String input) {
   final userRepo = ref.watch(userRepoProvider);
-  return userRepo.fetchUserData();
+  return userRepo.fetchUserData(input);
 });
 
 final streamProvider = StreamProvider((ref) async* {
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Flutter Riverpod Practice',
-      home: HomeScreen(),
+      home: MyHomePage(),
     );
   }
 }
