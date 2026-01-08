@@ -11,12 +11,12 @@ import 'package:riverpod_practice/user.dart';
 // FutureProvider
 // StreamProvider
 
-final fetchUserProvider = FutureProvider.family((ref, String input) {
+final fetchUserProvider = FutureProvider.family.autoDispose((ref, String input) {
   final userRepo = ref.watch(userRepoProvider);
   return userRepo.fetchUserData(input);
 });
 
-final streamProvider = StreamProvider((ref) async* {
+final streamProvider = StreamProvider.autoDispose((ref) async* {
   yield [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 });
 
