@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_practice/home_screen.dart';
+import 'package:riverpod_practice/logger_riverpod.dart';
 import 'package:riverpod_practice/user.dart';
 
 // Providers
@@ -15,6 +16,8 @@ import 'package:riverpod_practice/user.dart';
 // ProviderRef
 // Ref
 
+// ProviderObserver
+
 final fetchUserProvider = FutureProvider.family.autoDispose((ref, String input) {
   final userRepo = ref.watch(userRepoProvider);
   return userRepo.fetchUserData(input);
@@ -27,6 +30,9 @@ final streamProvider = StreamProvider.autoDispose((ref) async* {
 void main() {
   runApp(
     ProviderScope(
+      observers: [
+        LoggerRiverpod(),
+      ],
       child: const MyApp(),
     ),
   );
