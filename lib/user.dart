@@ -2,8 +2,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_riverpod/legacy.dart';
 import 'package:http/http.dart' as http;
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+part 'user.g.dart';
 
 class User {
   final String name;
@@ -39,9 +40,8 @@ class User {
 
   String toJson() => json.encode(toMap());
 
-  factory User.fromJson(String source) => User.fromMap(
-      json.decode(source) as Map<String, dynamic>
-  );
+  factory User.fromJson(String source) =>
+      User.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() => 'User(name: $name, email: $email)';
@@ -49,17 +49,22 @@ class User {
   @override
   bool operator ==(covariant User other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.name == name &&
-      other.email == email;
+
+    return other.name == name && other.email == email;
   }
 
   @override
   int get hashCode => name.hashCode ^ email.hashCode;
 }
 
-final userRepoProvider = Provider.autoDispose((ref) => UserRepo(ref));
+@riverpod
+UserRepo userRepo (UserRepoRef ref) {
+  return UserRepo(ref);
+}
+
+// UserRepo userRepo(UserRepoRef ref) {
+//   return UserRepo(ref);
+// }
 
 class UserRepo {
   final Ref ref;
