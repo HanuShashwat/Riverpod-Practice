@@ -59,9 +59,11 @@ class User {
   int get hashCode => name.hashCode ^ email.hashCode;
 }
 
-final userRepoProvider = Provider.autoDispose((ref) => UserRepo());
+final userRepoProvider = Provider.autoDispose((ref) => UserRepo(ref));
 
 class UserRepo {
+  final Ref ref;
+  UserRepo(this.ref);
   Future<User> fetchUserData(String input) {
     var url = 'https://jsonplaceholder.typicode.com/users/$input';
     return http.get(Uri.parse(url)).then((value) => User.fromJson(value.body));
